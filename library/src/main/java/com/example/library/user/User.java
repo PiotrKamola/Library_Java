@@ -2,7 +2,6 @@ package com.example.library.user;
 
 import com.example.library.book.Book;
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +26,7 @@ public class User {
     @Column(unique = true)
     private String login;
     private String password;
+    @OneToMany(mappedBy = "whichUserRenting", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
     private ArrayList<Book> rentedBooks;
 
     public User(String name, String surname, String email, String login, String password) {

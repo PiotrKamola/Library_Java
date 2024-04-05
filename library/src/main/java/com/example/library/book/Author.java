@@ -7,18 +7,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
-
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
 @Getter
 @Entity
-@Table(name = "GENRES", schema = "library")
-public class Genre {
+@Table(name = "AUTHORS", schema = "library")
+public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long genreId;
-    private String genreName;
-    @ManyToMany(mappedBy = "genres")
-    private ArrayList<Book> books;
+    private long authorId;
+    private String name;
+    private String surname;
+
+    @OneToMany(mappedBy = "author", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
+    private ArrayList<Book> bookList;
 }
