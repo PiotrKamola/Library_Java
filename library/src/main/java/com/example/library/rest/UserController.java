@@ -29,9 +29,12 @@ public class UserController {
     public String registerWrongUser(Model model, @ModelAttribute User userToAdd) {
         model.addAttribute("userToAdd", new User());
         if(userService.createUser(userToAdd)){
+            System.out.println("TRUE");
             userService.createUser(userToAdd);
         }else{
+            System.out.println("FALSE");
             model.addAttribute("showError", true);
+            return "register";
         }
         return "main";
     }
