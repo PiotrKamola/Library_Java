@@ -15,25 +15,27 @@ import java.util.ArrayList;
 @Getter
 @Entity
 @Table(name = "USERS", schema = "library")
-public class User {
+public class MyUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
     private String name;
     private String surname;
     @Column(unique = true)
-    private String email;
+    private String username;
     @Column(unique = true)
-    private String login;
+    private String email;
     private String password;
-    @OneToMany(mappedBy = "whichUserRenting", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
-    private ArrayList<Book> rentedBooks;
+//    @OneToMany(mappedBy = "whichUserRenting", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
+//    private ArrayList<Book> rentedBooks;
+    private String role;
 
-    public User(String name, String surname, String email, String login, String password) {
+    public MyUser(String name, String surname, String username, String email, String password) {
         this.name = name;
         this.surname = surname;
+        this.username = username;
         this.email = email;
-        this.login = login;
         this.password = password;
     }
+
 }

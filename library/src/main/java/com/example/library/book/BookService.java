@@ -1,7 +1,7 @@
 package com.example.library.book;
 
 import com.example.library.database.MySqlService;
-import com.example.library.user.User;
+import com.example.library.user.MyUser;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -23,7 +23,7 @@ public class BookService {
         book.setForSale(true);
     }
 
-    public boolean sellBook(Book book, User user){
+    public boolean sellBook(Book book, MyUser myUser){
         if(book.isForSale()){
             if(book.isUsed()){
                 if(book.isDamaged()){
@@ -39,20 +39,20 @@ public class BookService {
         }
     }
 
-    public boolean rentBook(Book book, User user){
+    public boolean rentBook(Book book, MyUser myUser){
         try{
             book.setRented(true);
-            user.getRentedBooks().add(book);
+//            myUser.getRentedBooks().add(book);
             return true;
         }catch (Exception e){
             return false;
         }
     }
 
-    public boolean returnBook(Book book, User user){
+    public boolean returnBook(Book book, MyUser myUser){
         try{
             book.setRented(false);
-            user.getRentedBooks().remove(book);
+//            myUser.getRentedBooks().remove(book);
             book.setUsed(true);
             return true;
         }catch (Exception e){

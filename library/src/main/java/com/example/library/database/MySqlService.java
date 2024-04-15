@@ -5,10 +5,12 @@ import com.example.library.book.Genre;
 import com.example.library.repository.BookRepository;
 import com.example.library.repository.GenreRepository;
 import com.example.library.repository.UserRepository;
-import com.example.library.user.User;
+import com.example.library.user.MyUser;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @Transactional
@@ -23,11 +25,11 @@ public class MySqlService {
         this.bookRepository = bookRepository;
         this.genreRepository = genreRepository;
     }
-    public void addNewUser(User user) {
-        userRepository.save(user);
+    public void addNewUser(MyUser myUser) {
+        userRepository.save(myUser);
     }
-    public void deleteUser(User user) {
-        userRepository.delete(user);
+    public void deleteUser(MyUser myUser) {
+        userRepository.delete(myUser);
     }
     public void addNewBook(Book book){
         bookRepository.save(book);
@@ -37,5 +39,10 @@ public class MySqlService {
     }
     public void addNewGenre(Genre genre) {
         genreRepository.save(genre);
+    }
+
+    public List<MyUser> getUsers() {
+        return userRepository.findAll().stream()
+                .toList();
     }
 }

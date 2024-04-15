@@ -1,6 +1,6 @@
 package com.example.library.book;
 
-import com.example.library.user.User;
+import com.example.library.user.MyUser;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,8 +21,8 @@ public class Book {
     private String name;
     @ManyToOne(fetch = FetchType.EAGER)
     private Author author;
-    @ManyToOne(fetch = FetchType.EAGER)
-    private User whichUserRenting;
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    private MyUser whichUserRenting;
     private int releaseYear;
     @ManyToMany
     @JoinTable(

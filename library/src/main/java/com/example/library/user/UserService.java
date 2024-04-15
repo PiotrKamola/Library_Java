@@ -19,18 +19,18 @@ public class UserService {
         return true;
     }
 
-    public boolean createUser(User user){
+    public boolean createUser(MyUser myUser){
         try {
-            mySqlService.addNewUser(user);
+            mySqlService.addNewUser(myUser);
             return true;
         }catch (Exception e){
             return false;
         }
     }
 
-    public boolean deleteUser(User user){
+    public boolean deleteUser(MyUser myUser){
         try {
-            mySqlService.deleteUser(user);
+            mySqlService.deleteUser(myUser);
             return true;
         }catch (Exception e){
             return false;
