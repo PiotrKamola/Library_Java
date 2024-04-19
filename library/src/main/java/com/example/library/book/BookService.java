@@ -38,25 +38,4 @@ public class BookService {
             return false;
         }
     }
-
-    public boolean rentBook(Book book, MyUser myUser){
-        try{
-            book.setRented(true);
-//            myUser.getRentedBooks().add(book);
-            return true;
-        }catch (Exception e){
-            return false;
-        }
-    }
-
-    public boolean returnBook(Book book, MyUser myUser){
-        try{
-            book.setRented(false);
-//            myUser.getRentedBooks().remove(book);
-            book.setUsed(true);
-            return true;
-        }catch (Exception e){
-            return false;
-        }
-    }
 }

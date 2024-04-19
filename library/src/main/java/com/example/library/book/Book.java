@@ -7,7 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -18,21 +20,29 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long bookId;
+
     private String name;
+
     @ManyToOne(fetch = FetchType.EAGER)
     private Author author;
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    private MyUser whichUserRenting;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private MyUser rentingUser;
+
     private int releaseYear;
+
     @ManyToMany
     @JoinTable(
             name = "bookGenres",
             joinColumns = @JoinColumn(name = "bookId"),
             inverseJoinColumns = @JoinColumn(name = "genreId"))
-    private ArrayList<Genre> genres;
+    private Set<Genre> genres = new HashSet<>();
+
     private boolean isForSale;
+
     private boolean isUsed;
+
     private boolean isDamaged;
+
     private double price;
-    private boolean isRented;
 }

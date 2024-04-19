@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,5 +22,5 @@ public class Genre {
     private long genreId;
     private String genreName;
     @ManyToMany(mappedBy = "genres")
-    private ArrayList<Book> books;
+    private Set<Book> books = new HashSet<>();
 }
