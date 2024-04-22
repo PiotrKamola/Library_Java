@@ -27,14 +27,16 @@ public class UserController {
     }
 
     @GetMapping("")
-    public String userPage() {
-        return "userPage";
+    public String userPage(Model model) {
+        model.addAttribute("content", "userPage");
+        return "main";
     }
     @GetMapping("/register")
     public String registerUser(Model model) {
         model.addAttribute("userToAdd", new MyUser());
         model.addAttribute("showError", false);
-        return "register";
+        model.addAttribute("content", "register");
+        return "main";
     }
 
     @PostMapping("/register")
@@ -47,8 +49,10 @@ public class UserController {
         }else{
             System.out.println("FALSE");
             model.addAttribute("showError", true);
+            model.addAttribute("content", "register");
             return "register";
         }
+        model.addAttribute("content", "mainPage");
         return "main";
     }
 }

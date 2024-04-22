@@ -25,13 +25,15 @@ public class BookController {
     public String addBook(Model model){
         model.addAttribute("bookToAdd", new Book());
         model.addAttribute("allAuthors", authorService.getAllAuthors());
-        return "addBook";
+        model.addAttribute("content", "addBook");
+        return "main";
     }
 
     @PostMapping("/addBook")
     public String addedNewBook(Model model, @ModelAttribute Book bookToAdd){
         model.addAttribute("bookToAdd", new Book());
         bookService.addBook(bookToAdd);
+        model.addAttribute("content", "mainPage");
         return "main";
     }
 }

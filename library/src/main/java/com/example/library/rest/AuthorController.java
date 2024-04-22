@@ -22,12 +22,14 @@ public class AuthorController {
     @GetMapping("/addAuthor")
     public String addAuthor(Model model){
         model.addAttribute("authorToAdd", new Author());
-        return "addAuthor";
+        model.addAttribute("content", "addAuthor");
+        return "main";
     }
 
     @PostMapping("/addAuthor")
     public String addedNewAuthor(Model model, @ModelAttribute Author authorToAdd){
         authorService.addNewAuthor(authorToAdd);
+        model.addAttribute("content", "mainPage");
         return "main";
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AdminController {
     @GetMapping("")
     public String menu(Model model) {
-        return "adminPage";
+        model.addAttribute("content", "adminPage");
+        return "main";
     }
 }
