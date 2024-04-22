@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractAuthenticationFilterConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -21,40 +22,27 @@ public class SecurityConfig {
 
     @Autowired
     private MyUserDetailsService userDetailsService;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
+                .formLogin(form -> form
+                        .loginPage("/user/login")
+                        .permitAll())
                 .authorizeHttpRequests(registry -> {
                     registry.requestMatchers("/home",
                             "/user/register",
                             "/",
                             "/author/**",
-                            "/book/**").permitAll();
+                            "/book/**",
+                            "/css/**").permitAll();
                     registry.requestMatchers("/admin/**").hasRole("ADMIN");
                     registry.requestMatchers("/user/**").hasRole("USER");
                     registry.anyRequest().authenticated();
-        })
-                .formLogin(AbstractAuthenticationFilterConfigurer::permitAll)
+                })
                 .build();
     }
-
-//    @Bean
-//    public UserDetailsService userDetailsService(){
-//        UserDetails normalUser = User.builder()
-//                .username("normal")
-//                .password("$2a$12$qcyoQXGeXpusTsPMVVIqY.xqmzjUozLIiSaGhq4sdz56MayP3QkgG")
-//                .roles("USER")
-//                .build();
-//
-//        UserDetails adminlUser = User.builder()
-//                .username("admin")
-//                .password("$2a$12$FaPA4ZmqGNDPzkWIFoVk1e7pgjvorwbbBrPnf4Vmz1XiUKkJPgquC")
-//                .roles("ADMIN", "USER")
-//                .build();
-//
-//        return new InMemoryUserDetailsManager(normalUser, adminlUser);
-//    }
 
     @Bean
     public MyUserDetailsService MyuserDetailsService(){

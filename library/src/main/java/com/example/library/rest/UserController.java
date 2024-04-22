@@ -55,4 +55,16 @@ public class UserController {
         model.addAttribute("content", "mainPage");
         return "main";
     }
+
+    @GetMapping("/login")
+    public String loginUser(Model model) {
+        model.addAttribute("content", "login");
+        return "main";
+    }
+
+    @PostMapping("/login")
+    public String loggedUser(Model model) {
+        model.addAttribute("content", "mainPage");
+        return "main";
+    }
 }
