@@ -4,6 +4,8 @@ import com.example.library.book.Author;
 import com.example.library.book.AuthorService;
 import com.example.library.book.Book;
 import com.example.library.book.BookService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,8 @@ public class BookController {
 
     @GetMapping("/addBook")
     public String addBook(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("loggedUser", authentication.getName());
         model.addAttribute("bookToAdd", new Book());
         model.addAttribute("allAuthors", authorService.getAllAuthors());
         model.addAttribute("content", "addBook");
@@ -33,6 +37,8 @@ public class BookController {
     public String addedNewBook(Model model, @ModelAttribute Book bookToAdd){
         model.addAttribute("bookToAdd", new Book());
         bookService.addBook(bookToAdd);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        model.addAttribute("loggedUser", authentication.getName());
         model.addAttribute("content", "mainPage");
         return "main";
     }

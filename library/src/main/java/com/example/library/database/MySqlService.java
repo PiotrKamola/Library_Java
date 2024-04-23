@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -38,6 +39,9 @@ public class MySqlService {
     }
     public void deleteUser(MyUser myUser) {
         userRepository.delete(myUser);
+    }
+    public Optional<MyUser> getUserByUsername(String username){
+        return userRepository.findUserByUsername(username);
     }
 
     public void addNewBook(Book book){

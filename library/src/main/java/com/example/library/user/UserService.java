@@ -3,6 +3,8 @@ package com.example.library.user;
 import com.example.library.database.MySqlService;
 import org.springframework.stereotype.Controller;
 
+import java.util.Optional;
+
 @Controller
 public class UserService {
     private final MySqlService mySqlService;
@@ -37,4 +39,7 @@ public class UserService {
         }
     }
 
+    public Optional<MyUser> getUserByUsername(String username){
+        return mySqlService.getUserByUsername(username);
+    }
 }
