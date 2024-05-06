@@ -5,6 +5,7 @@ import com.example.library.user.MyUser;
 import com.example.library.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,14 @@ public class UserController {
         model.addAttribute("content", "userPage");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("loggedUser", authentication.getName());
+        for(GrantedAuthority s: authentication.getAuthorities()){
+            if(s.toString().equals("ROLE_USER")){
+                model.addAttribute("isUser", "true");
+            }
+            if(s.toString().equals("ROLE_ADMIN")){
+                model.addAttribute("isAdmin", "true");
+            }
+        }
         return "main";
     }
     @GetMapping("/register")
@@ -41,6 +50,14 @@ public class UserController {
         model.addAttribute("content", "register");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("loggedUser", authentication.getName());
+        for(GrantedAuthority s: authentication.getAuthorities()){
+            if(s.toString().equals("ROLE_USER")){
+                model.addAttribute("isUser", "true");
+            }
+            if(s.toString().equals("ROLE_ADMIN")){
+                model.addAttribute("isAdmin", "true");
+            }
+        }
         return "main";
     }
 
@@ -48,6 +65,14 @@ public class UserController {
     public String registerWrongUser(Model model, @ModelAttribute MyUser userToAdd) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("loggedUser", authentication.getName());
+        for(GrantedAuthority s: authentication.getAuthorities()){
+            if(s.toString().equals("ROLE_USER")){
+                model.addAttribute("isUser", "true");
+            }
+            if(s.toString().equals("ROLE_ADMIN")){
+                model.addAttribute("isAdmin", "true");
+            }
+        }
         model.addAttribute("userToAdd", new MyUser());
         if(userService.createUser(userToAdd)){
             userToAdd.setPassword(passwordEncoder.encode(userToAdd.getPassword()));
@@ -66,7 +91,16 @@ public class UserController {
     public String loginUser(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("loggedUser", authentication.getName());
+        for(GrantedAuthority s: authentication.getAuthorities()){
+            if(s.toString().equals("ROLE_USER")){
+                model.addAttribute("isUser", "true");
+            }
+            if(s.toString().equals("ROLE_ADMIN")){
+                model.addAttribute("isAdmin", "true");
+            }
+        }
         model.addAttribute("content", "login");
+        model.addAttribute("test", authentication.getAuthorities());
         return "main";
     }
 
@@ -74,15 +108,31 @@ public class UserController {
     public String loggedUser(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("loggedUser", authentication.getName());
+        for(GrantedAuthority s: authentication.getAuthorities()){
+            if(s.toString().equals("ROLE_USER")){
+                model.addAttribute("isUser", "true");
+            }
+            if(s.toString().equals("ROLE_ADMIN")){
+                model.addAttribute("isAdmin", "true");
+            }
+        }
         model.addAttribute("content", "mainPage");
+        model.addAttribute("test", authentication.getAuthorities());
         return "main";
     }
 
     @PostMapping("/deleteAccount")
     public String deleteAccount(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//        userService.deleteUser(userService.getUserByUsername(authentication.getName()));
         model.addAttribute("loggedUser", authentication.getName());
+        for(GrantedAuthority s: authentication.getAuthorities()){
+            if(s.toString().equals("ROLE_USER")){
+                model.addAttribute("isUser", "true");
+            }
+            if(s.toString().equals("ROLE_ADMIN")){
+                model.addAttribute("isAdmin", "true");
+            }
+        }
         model.addAttribute("content", "mainPage");
         return "main";
     }

@@ -24,17 +24,28 @@
 
       <div class="collapse navbar-collapse " id="navbarNavAltMarkup">
         <div class="navbar-nav ms-auto">
-          <span th:if="${loggedUser == 'anonymousUser'}">
+          <a th:if="${loggedUser == 'anonymousUser'}">
+            <a class="nav-link px-lg-2" th:href="@{/user/login}">Login</a>
             <a class="nav-link px-lg-2" th:href="@{/user/register}">Register</a>
-          </span>
-          <a class="nav-link px-lg-2" th:href="@{/author/addAuthor}">Add new author</a>
-          <a class="nav-link px-lg-2" th:href="@{/book/addBook}">Add new book</a>
-          <a class="nav-link px-lg-2" th:href="@{/user}">User page</a>
-          <a class="nav-link px-lg-2" th:href="@{/admin}">Admin page</a>
-          <span th:if="${loggedUser != 'anonymousUser'}">
+          </a>
+          <a th:if="${loggedUser != 'anonymousUser'}">
             <a class="nav-link px-lg-2" th:text=" 'Logged as: ' + ${loggedUser}"></a>
             <a class="nav-link px-lg-2" th:href="@{/logout}">Logout</a>
-          </span>
+          </a>
+
+          <a th:if="${isUser == 'true'}">
+            <a class="nav-link px-lg-2" th:href="@{/user}">User page</a>
+            <a class="nav-link px-lg-2" th:href="@{/book/myBooks}">My book</a>
+            <a class="nav-link px-lg-2" th:href="@{/book/rentBook}">Rent book</a>
+          </a>
+
+          <a th:if="${isAdmin == 'true'}">
+            <a class="nav-link px-lg-2" th:href="@{/admin}">Admin page</a>
+            <a class="nav-link px-lg-2" th:href="@{/author/addAuthor}">Add new author</a>
+            <a class="nav-link px-lg-2" th:href="@{/book/addGenre}">Add new genre</a>
+            <a class="nav-link px-lg-2" th:href="@{/book/addBook}">Add new book</a>
+          </a>
+
         </div>
       </div>
     </div>

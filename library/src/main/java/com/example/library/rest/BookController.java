@@ -5,6 +5,7 @@ import com.example.library.book.AuthorService;
 import com.example.library.book.Book;
 import com.example.library.book.BookService;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,14 @@ public class BookController {
     public String addBook(Model model){
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("loggedUser", authentication.getName());
+        for(GrantedAuthority s: authentication.getAuthorities()){
+            if(s.toString().equals("ROLE_USER")){
+                model.addAttribute("isUser", "true");
+            }
+            if(s.toString().equals("ROLE_ADMIN")){
+                model.addAttribute("isAdmin", "true");
+            }
+        }
         model.addAttribute("bookToAdd", new Book());
         model.addAttribute("allAuthors", authorService.getAllAuthors());
         model.addAttribute("content", "addBook");
@@ -39,6 +48,14 @@ public class BookController {
         bookService.addBook(bookToAdd);
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("loggedUser", authentication.getName());
+        for(GrantedAuthority s: authentication.getAuthorities()){
+            if(s.toString().equals("ROLE_USER")){
+                model.addAttribute("isUser", "true");
+            }
+            if(s.toString().equals("ROLE_ADMIN")){
+                model.addAttribute("isAdmin", "true");
+            }
+        }
         model.addAttribute("content", "mainPage");
         return "main";
     }
