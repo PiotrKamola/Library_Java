@@ -50,9 +50,15 @@ public class MySqlService {
     public void deleteBook(Book book){
         bookRepository.delete(book);
     }
+    public ArrayList<Book> getAllBooks(){
+        return bookRepository.findAll();
+    }
 
     public void addNewGenre(Genre genre) {
         genreRepository.save(genre);
+    }
+    public ArrayList<Genre> getAllGenres(){
+        return genreRepository.findAll();
     }
 
     public void addNewAuthor(Author author){ authorRepository.save(author);}

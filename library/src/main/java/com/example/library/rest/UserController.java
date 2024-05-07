@@ -44,7 +44,7 @@ public class UserController {
         return "main";
     }
     @GetMapping("/register")
-    public String registerUser(Model model) {
+    public String getUserToAddData(Model model) {
         model.addAttribute("userToAdd", new MyUser());
         model.addAttribute("showError", false);
         model.addAttribute("content", "register");
@@ -62,7 +62,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String registerWrongUser(Model model, @ModelAttribute MyUser userToAdd) {
+    public String registerUser(Model model, @ModelAttribute MyUser userToAdd) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("loggedUser", authentication.getName());
         for(GrantedAuthority s: authentication.getAuthorities()){

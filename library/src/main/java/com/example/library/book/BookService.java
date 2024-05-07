@@ -4,6 +4,8 @@ import com.example.library.database.MySqlService;
 import com.example.library.user.MyUser;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 @Component
 public class BookService {
     private final MySqlService mySqlService;
@@ -21,6 +23,10 @@ public class BookService {
 
     public void setBookForSale(Book book){
         book.setForSale(true);
+    }
+
+    public ArrayList<Book> getAllBooks(){
+        return mySqlService.getAllBooks();
     }
 
     public boolean sellBook(Book book, MyUser myUser){

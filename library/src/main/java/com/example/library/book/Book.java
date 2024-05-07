@@ -45,4 +45,14 @@ public class Book {
     private boolean isDamaged;
 
     private double price;
+
+    public String bookGenresString(){
+        String genresString = "";
+        if(this.genres != null){
+            for(Genre g : genres){
+                genresString = genresString + g.getGenreName() + ", ";
+            }
+        }
+        return genresString;
+    }
 }
